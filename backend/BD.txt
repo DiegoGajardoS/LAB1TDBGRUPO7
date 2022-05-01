@@ -53,7 +53,7 @@ CREATE TABLE Habilidad (
 CREATE TABLE Estado_tarea(
 
     id serial,
-    estado boolean,
+    estado varchar(50),
     deleted boolean NOT NULL DEFAULT false,
 
     PRIMARY KEY (id)
