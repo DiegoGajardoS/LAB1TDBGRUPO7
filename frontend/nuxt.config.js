@@ -1,4 +1,8 @@
 export default {
+
+  server: {
+    port: 8081,
+  },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -7,7 +11,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'frontend',
+    title: 'lab1',
     htmlAttrs: {
       lang: 'en'
     },
@@ -39,16 +43,16 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    // https://go.nuxtjs.dev/axios
+    '@nuxtjs/axios',
   ],
+
+  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {
+    baseURL: 'http://localhost:8080/',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL: 'http://localhost:3000/',
-  },
-
-
 }
