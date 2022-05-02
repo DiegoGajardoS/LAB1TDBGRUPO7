@@ -1,11 +1,11 @@
 package grupo7.tbd.lab1.repositories;
 
 import grupo7.tbd.lab1.models.Tarea;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import java.util.List;
 
 
 @Repository
@@ -13,87 +13,88 @@ public class TareaRepositoryImp implements TareaRepository{
     @Autowired
     private Sql2o sql2o;
 
-    //GET ALL
     @Override
-    public List<Tarea> getAllTareas() {
-        try(Connection conn = sql2o.open()){
-            return conn.createQuery("select * from tarea")
-                    .executeAndFetch(Tarea.class);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public Long countTarea(){
+        String query = "select count(*) from tarea";
+        Connection conn = sql2o.open();
+        Long resultado = (Long) conn.createQuery(query,true).executeAndFetchFirst(Long.class);
+        return resultado + 1; 
     }
 
-    //GET BY ID
     @Override
-    public List<Tarea> getTarea(int id) {
-        String sql = "SELECT * FROM tarea WHERE tarea.id = :id";
-        List<Tarea> item = null;
-        try(Connection con = sql2o.open()){
-            item = con.createQuery(sql)
-                    .addParameter("id", id)
-                    .executeAndFetch(Tarea.class);
-            return item;
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    //--CREATE
-    @Override
-    public Tarea createTarea(Tarea tarea) {
-
+    public Tarea createTarea(Tarea tarea){
+        Long id_prueba =countTarea();
+        String query = "INSERT into tarea (id,titulo,descripcion,id_estado,id_emergencia,cant_voluntarios) values (:id,:titulo,:descripcion,:id_estado,:id_emergencia,:cant_voluntarios)";
         try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO tarea (titulo, descripcion, cant_voluntarios, id_estado, id_emergencia, deleted) values (:titulo, :descripcion, :cant_voluntarios, :id_estado, :id_emergencia, :deleted)", true)
-                    .addParameter("titulo", tarea.getTitulo())
-                    .addParameter("descripcion", tarea.getDescripcion())
-                    .addParameter("cant_voluntarios", tarea.getCant_voluntarios())
-                    .addParameter("id_estado", tarea.getId_estado())
-                    .addParameter("id_emergencia", tarea.getId_emergencia())
-                    .addParameter("deleted", tarea.getDeleted())
-                    .executeUpdate().getKey();
+            conn.createQuery(query,true).addParameter("id",id_prueba).addParameter("titulo", tarea.getTitulo())
+                            .addParameter("descripcion", tarea.getDescripcion())
+                            .addParameter("id_estado",Long.valueOf(tarea.getEstadoId()))
+                            .addParameter("id_emergencia",Long.valueOf(tarea.getEmergenciaId()))
+                            .addParameter("cant_voluntarios", tarea.getCant_Voluntarios())
+                            .executeUpdate().getKey();
+            tarea.setId(id_prueba);
             return tarea;
-        }catch(Exception e){
+        } 
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    
+    @Override
+    public Tarea getTarea(Long id){
+        String query = "select * from tarea where id = :id and deleted = false";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(query).addParameter("id",id).executeAndFetchFirst(Tarea.class);
+        }
+        catch (Exception e){
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    //DELETE
     @Override
-    public void deleteTarea(int id) {
-        String deleteSql = "DELETE FROM tarea WHERE id = :id";
+    public List<Tarea> getTareas(){
+        String query = "select * from tarea where deleted=false";
         try(Connection conn = sql2o.open()){
-            conn.createQuery(deleteSql)
-                    .addParameter("id", id)
-                    .executeUpdate();
-            return;
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-    //--UPDATE
+            return conn.createQuery(query).executeAndFetch(Tarea.class);
+         }
+         catch (Exception e){
+             System.out.println(e.getMessage());
+             return null;
+         }
+     }
+
     @Override
-    public void updateTarea(Tarea tarea, int id){
-        String updateSql = "UPDATE tarea SET titulo = :titulo, descripcion = :descripcion, cant_voluntarios = :cant_voluntarios, id_estado = :id_estado, id_emergencia = :id_emergencia, deleted = :deleted where id = :id";
-        try(Connection conn = sql2o.open()){
-            conn.createQuery(updateSql)
-                    .addParameter("titulo", tarea.getTitulo())
-                    .addParameter("descripcion", tarea.getDescripcion())
-                    .addParameter("cant_voluntarios", tarea.getCant_voluntarios())
-                    .addParameter("id_estado", tarea.getId_estado())
-                    .addParameter("id_emergencia", tarea.getId_emergencia())
-                    .addParameter("deleted", tarea.getDeleted())
-                    .addParameter("id", id)
-                    .executeUpdate();
-            return;
-        }
-        catch(Exception e){
+    public boolean deleteTarea(Long id){
+         String query = "update tarea set deleted = true where id = :id and deleted = false";
+         try(Connection conn = sql2o.open()){
+            id = conn.createQuery(query).addParameter("id",id).executeUpdate().getKey(Long.class);
+         }
+         catch (Exception e){
             System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+     }
+
+    @Override 
+    public Tarea updateTarea(Tarea tarea, Long id){
+        String query = "update tarea set titulo = :titulo, descripcion = :descripcion, id_estado = :id_estado, cant_voluntarios = :cant_voluntarios where id = :id and deleted = false";
+        try(Connection conn = sql2o.open()){
+            Long insertedid = (Long) conn.createQuery(query).addParameter("id", id)
+                            .addParameter("titulo", tarea.getTitulo())
+                            .addParameter("descripcion", tarea.getDescripcion())
+                            .addParameter("id_estado", tarea.getEstadoId())
+                            .addParameter("cant_voluntarios", tarea.getCant_Voluntarios())
+                            .executeUpdate().getKey(Long.class);
+            tarea.setId(insertedid);
+            return tarea;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 }
