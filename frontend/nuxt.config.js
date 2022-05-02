@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 export default {
 
   server: {
@@ -50,6 +53,8 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: 'http://localhost:8080/',
+    baseURL: process.env.BACK_URL,
+    proxy: true,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
