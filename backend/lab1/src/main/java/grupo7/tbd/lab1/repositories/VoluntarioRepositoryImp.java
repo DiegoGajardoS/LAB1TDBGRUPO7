@@ -43,13 +43,6 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
     }
 
     //--CREATE
-
-    /**
-     *
-     * @param voluntario
-     * @param disponibilidad
-     * @return
-     */
     @Override
     public Voluntario createVoluntario(Voluntario voluntario) {
 
@@ -88,10 +81,10 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
     //--UPDATE
     @Override
     public void updateVoluntario(Voluntario voluntario, int id){
-        String updateSql = "UPDATE voluntario SET nombre= :nombre, disponibilidad = :disponibilidad, telefono = :telefono, direccion = :direccion, correo_electronico = :correo_electronico, rut = :rut, ubicacion = :ubicacion, deleted = :deleted where id = :id";
+        String updateSql = "UPDATE voluntario SET nombre = :nombre, disponibilidad = :disponibilidad, telefono = :telefono, direccion = :direccion, correo_electronico = :correo_electronico, rut = :rut, ubicacion = :ubicacion, deleted = :deleted where id = :id";
         try(Connection conn = sql2o.open()){
             conn.createQuery(updateSql)
-                    .addParameter("name", voluntario.getNombre())
+                    .addParameter("nombre", voluntario.getNombre())
                     .addParameter("disponibilidad", voluntario.getDisponibilidad())
                     .addParameter("telefono", voluntario.getTelefono())
                     .addParameter("direccion", voluntario.getDireccion())

@@ -5,29 +5,31 @@ import grupo7.tbd.lab1.repositories.VoluntarioRepository;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@RestController
 public class VoluntarioService {
-    private final VoluntarioRepository voluntariosRepository;
+    private final VoluntarioRepository voluntarioRepository;
 
-    public VoluntarioService(VoluntarioRepository VoluntariosRepository){
-        this.voluntariosRepository = VoluntariosRepository;
+    public VoluntarioService(VoluntarioRepository voluntarioRepository){
+        this.voluntarioRepository = voluntarioRepository;
     }
 
+    //GET ALL
     @GetMapping("/voluntarios")
     public List<Voluntario> getAllVoluntarios() {
-        return voluntariosRepository.getAllVoluntarios();
+        return voluntarioRepository.getAllVoluntarios();
     }
 
     //GET BY ID
     @GetMapping("/voluntarios/{id}")
     public List<Voluntario> getVoluntario(@PathVariable int id) {
-        return voluntariosRepository.getVoluntario(id);
+        return voluntarioRepository.getVoluntario(id);
     }
 
     //CREATE
     @PostMapping("/voluntarios")
     @ResponseBody
-    public Voluntario createVoluntario(@RequestBody Voluntario voluntarios){
-        Voluntario result = voluntariosRepository.createVoluntario(voluntarios);
+    public Voluntario createVoluntario(@RequestBody Voluntario voluntario){
+        Voluntario result = voluntarioRepository.createVoluntario(voluntario);
         return result;
     }
 
@@ -35,14 +37,14 @@ public class VoluntarioService {
     @DeleteMapping("/voluntarios/delete/{id}")
     @ResponseBody
     public List<Voluntario> deleteVoluntario(@PathVariable int id){
-        voluntariosRepository.deleteVoluntario(id);
-        return voluntariosRepository.getAllVoluntarios();
+        voluntarioRepository.deleteVoluntario(id);
+        return voluntarioRepository.getAllVoluntarios();
     }
     //UPDATE
     @PutMapping("/voluntarios/update/{id}")
     @ResponseBody
     public List<Voluntario> updateVoluntario(@RequestBody Voluntario voluntarios, @PathVariable int id){
-        voluntariosRepository.updateVoluntario(voluntarios, id);
-        return voluntariosRepository.getAllVoluntarios();
+        voluntarioRepository.updateVoluntario(voluntarios, id);
+        return voluntarioRepository.getAllVoluntarios();
     }
 }
