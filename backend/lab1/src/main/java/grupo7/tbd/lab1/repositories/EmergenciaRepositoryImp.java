@@ -28,14 +28,15 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     @Override
     public Emergencia createEmergencia(Emergencia emergencia){
         Long id_prueba =countEmergencia();
-        String query = "INSERT INTO emergencia (id,titulo,descripcion,direccion,id_institucion,activo) values (:id,:titulo,:direccion,:descripcion,:id_institucion,:activo)";
+        String query = "INSERT INTO emergencia (id,titulo,descripcion,direccion,id_institucion,activo,ubicacion) values (:id,:titulo,:direccion,:descripcion,:id_institucion,:activo,:ubicacion)";
         try(Connection conn = sql2o.open()){
             conn.createQuery(query,true).addParameter("id",id_prueba).addParameter("titulo", emergencia.getTitulo())
                             .addParameter("descripcion", emergencia.getDescripcion())
                             .addParameter("id_institucion", emergencia.getInstitucionId())
                             .addParameter("direccion", emergencia.getDireccion())
                             .addParameter("activo", emergencia.getActivo())
-                            .executeUpdate().getKey();
+                            .addParameter("ubicacion", emergencia.getUbicacion())
+                            .executeUpdate().getKey(Long.class);
             emergencia.setId(id_prueba);
             return emergencia;
         }
