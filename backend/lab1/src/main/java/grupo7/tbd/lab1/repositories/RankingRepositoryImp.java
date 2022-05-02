@@ -14,87 +14,87 @@ import org.sql2o.Sql2o;
 @Repository
 public class RankingRepositoryImp implements RankingRepository{
     @Autowired
-    private Sql2o sql2o;
+     private Sql2o sql2o;
 
-    //GET ALL
     @Override
-    public List<Ranking> getAllRankings() {
-        try(Connection conn = sql2o.open()){
-            return conn.createQuery("select * from ranking")
-                    .executeAndFetch(Ranking.class);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public Long countRanking(){
+        String query = "select count(*) from ranking";
+        Connection conn = sql2o.open();
+        Long resultado = (Long) conn.createQuery(query,true).executeAndFetchFirst(Long.class);
+        return resultado + 1; 
     }
 
-    //GET BY ID
     @Override
-    public List<Ranking> getRanking(int id) {
-        String sql = "SELECT * FROM ranking WHERE ranking.id = :id";
-        List<Ranking> item = null;
-        try(Connection con = sql2o.open()){
-            item = con.createQuery(sql)
-            .addParameter("id", id)
-            .executeAndFetch(Ranking.class);
-            return item;
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    //--CREATE
-    @Override
-    public Ranking createRanking(Ranking ranking) {
-
+    public Ranking createRanking(Ranking ranking){
+        Long id_prueba =countRanking();
+        String query = "insert into Ranking (id, valor, id_tarea, id_voluntario) values (:id, :valor, :id_tarea, :id_voluntario)";
         try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO ranking (valor, id_tarea, id_voluntario, deleted) values (:valor, :id_tarea, :id_voluntario, :deleted)", true)
-                    .addParameter("valor", ranking.getValor())
-                    .addParameter("id_tarea", ranking.getId_tarea())
-                    .addParameter("id_voluntario", ranking.getId_voluntario())
-                    .addParameter("deleted", ranking.getDeleted())
-                    .executeUpdate().getKey();
+            conn.createQuery(query,true).addParameter("id",id_prueba).addParameter("valor", ranking.getvalor())
+                            .addParameter("id_tarea", ranking.getId_tarea())
+                            .addParameter("id_voluntario", ranking.getId_voluntario())
+                            .executeUpdate().getKey();
+            ranking.setId(id_prueba);
             return ranking;
-        }catch(Exception e){
+        }
+        catch(Exception e){
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    //DELETE
     @Override
-    public void deleteRanking(int id) {
-        String deleteSql = "DELETE FROM ranking WHERE id = :id";
+    public Ranking getRanking(Long id){
+        String query = "select * from Ranking where id = :id and deleted = false";
         try(Connection conn = sql2o.open()){
-            conn.createQuery(deleteSql)
-            .addParameter("id", id)
-            .executeUpdate();
-            return;
+            return conn.createQuery(query).addParameter("id",id).executeAndFetchFirst(Ranking.class);
         }
-        catch(Exception e){
+        catch (Exception e){
             System.out.println(e.getMessage());
+            return null;
         }
     }
-    //--UPDATE
+
     @Override
-    public void updateRanking(Ranking ranking, int id){
-        String updateSql = "UPDATE ranking SET valor = :valor, id_tarea = :id_tarea, id_voluntario = :id_voluntario, deleted = :deleted where id = :id";
+    public List<Ranking> getRankings() {
+        String query = "select * from Ranking";
         try(Connection conn = sql2o.open()){
-            conn.createQuery(updateSql)
-            .addParameter("valor", ranking.getValor())
-            .addParameter("id_tarea", ranking.getId_tarea())
-            .addParameter("id_voluntario", ranking.getId_voluntario())
-            .addParameter("deleted", ranking.getDeleted())
-            .addParameter("id", id)
-            .executeUpdate();
-            return;
-        }
-        catch(Exception e){
+            return conn.createQuery(query).executeAndFetch(Ranking.class);
+         }
+         catch (Exception e){
+             System.out.println(e.getMessage());
+             return null;
+         }
+     }
+
+     @Override
+     public boolean deleteRanking(Long id){
+         String query = "update Ranking set deleted = true where id = :id and deleted = false";
+         try(Connection conn = sql2o.open()){
+            id = conn.createQuery(query).addParameter("id",id).executeUpdate().getKey(Long.class);
+         }
+         catch (Exception e){
             System.out.println(e.getMessage());
+            return false;
         }
-    }
+        return true;
+     }
+
+     @Override
+     public Ranking updateRanking( Ranking ranking,Long id){
+        String query = "update ranking set valor = :valor, id_tarea = :id_tarea, id_voluntario = :id_voluntario where id = :id and deleted = false";
+        try(Connection conn = sql2o.open()){
+            Long insertedid = (Long) conn.createQuery(query).addParameter("id", id)
+                            .addParameter("valor", ranking.getvalor())
+                            .addParameter("id_tarea", ranking.getId_tarea())
+                            .addParameter("id_voluntario", ranking.getId_voluntario())
+                            .executeUpdate().getKey(Long.class);
+            ranking.setId(insertedid);
+            return ranking;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+     }
 }
-
-

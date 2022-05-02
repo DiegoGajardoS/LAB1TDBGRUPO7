@@ -5,60 +5,46 @@
 package grupo7.tbd.lab1.models;
 
 public class Ranking {
-    private Integer id;
+    private Long id;
     private Integer valor;
-    private Integer id_tarea;
-    private Integer id_voluntario;
-    private boolean deleted;
-
-    //GETTERS Y SETTERS
-    //ID
-    //Getter
-    public Integer getId() {
+    private Long id_tarea;
+    private Long id_voluntario;
+    private Boolean deleted;
+    //***** GETTERS *****//
+    public Long getId() {
         return id;
     }
-    //Setter
-    public void setId(Integer id) {
+    public Integer getvalor(){
+        return valor;
+    }
+    public Long getId_tarea(){
+        return id_tarea;
+    }
+    public Long getId_voluntario(){
+        return id_voluntario;
+    }
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    //***** SETTERS *****//
+    public void setId(Long id) {
         this.id = id;
     }
 
-    //Valor
-    //Getter
-    public Integer getValor() {
-        return valor;
-    }
-    //Setter
-    public void setValor(Integer valor) {
+    public void setvalor(Integer valor) {
         this.valor = valor;
     }
-
-    //ID_tarea
-    //Getter
-    public Integer getId_tarea() {
-        return id_tarea;
+    
+    public void setId_tarea(Long id_tarea) {
+        this.id_tarea= id_tarea;
     }
-    //Setter
-    public void setId_tarea(Integer id_tarea) {
-        this.id_tarea = id_tarea;
+    
+    public void setId_voluntario(Long id_voluntario) {
+        this.id_voluntario= id_voluntario;
     }
-
-    //ID_voluntario
-    //Getter
-    public Integer getId_voluntario() {
-        return id_voluntario;
-    }
-    //Setter
-    public void setId_voluntario(Integer id_voluntario) {
-        this.id_voluntario = id_voluntario;
-    }
-
-    //Deleted
-    //Getter
-    public boolean getDeleted() {
-        return deleted;
-    }
-    //Setter
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    
+    public void setDeleted(Boolean deleted) {
+        this.deleted= deleted;
     }
 }

@@ -8,9 +8,11 @@ import grupo7.tbd.lab1.models.Ranking;
 import java.util.List;
 
 public interface RankingRepository {
-    public List<Ranking> getAllRankings();
-    public List<Ranking> getRanking(int id);
+    
     public Ranking createRanking(Ranking ranking);
-    public void updateRanking(Ranking ranking, int id);
-    public void deleteRanking(int id);
+    public List<Ranking> getRankings();  
+    public Ranking getRanking(Long id);
+    public Ranking updateRanking(Ranking ranking, Long id);
+    public boolean deleteRanking(Long id);
+    public Long countRanking();
 }
