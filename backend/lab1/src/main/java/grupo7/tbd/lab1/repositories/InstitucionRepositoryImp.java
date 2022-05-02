@@ -84,15 +84,17 @@ public class InstitucionRepositoryImp implements InstitucionRepository{
      @Override
      public Institucion updateInstitucion(Institucion institucion, Long id)
      {
-          String query = "update institucion nombre = :nombre, direccion = :direccion,telefono = :telefono, dominio = :dominio where id = :id and deleted = false";
-        try(Connection conn = sql2o.open()){
-            Long insertedid = (Long) conn.createQuery(query).addParameter("id", id)
-            .addParameter("nombre", institucion.getNombre())
-            .addParameter("direccion", institucion.getDireccion())
-            .addParameter("telefono", institucion.getTelefono())
-            .addParameter("dominio", institucion.getDominio())
-            .executeUpdate().getKey(Long.class);
-            institucion.setId(insertedid);
+            String query = "update institucion set nombre = :nombre, direccion = :direccion, telefono = :telefono, dominio = :dominio where id = :id and deleted = false";
+            
+            try(Connection conn = sql2o.open()){
+                 Long insertedid = (Long) conn.createQuery(query)
+                 .addParameter("id", id)
+                 .addParameter("nombre", institucion.getNombre())
+                 .addParameter("direccion", institucion.getDireccion())
+                 .addParameter("telefono", institucion.getTelefono())
+                 .addParameter("dominio", institucion.getDominio())
+                 .executeUpdate().getKey(Long.class);
+                 institucion.setId(insertedid);
             return institucion;
         }
         catch (Exception e){

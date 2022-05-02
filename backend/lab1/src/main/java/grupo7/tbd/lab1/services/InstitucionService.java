@@ -66,25 +66,23 @@ public class InstitucionService {
     @RequestMapping(value ="/instituciones/{id}",  method =RequestMethod.PUT,consumes="application/json")
     ResponseEntity<String> updateInstitucion(@RequestBody String request, @PathVariable Long id){
         Institucion inst=gson.fromJson(request,Institucion.class);
-        Institucion institucionOut = institucionRepository.getInstitucion(id);
-        if(institucionOut != null){
+        Institucion instOut = institucionRepository.getInstitucion(id);
+        if(instOut != null){
             if(inst.getNombre() != null){
-                institucionOut.setNombre(inst.getNombre());
+                instOut.setNombre(inst.getNombre());
             }
-
             if(inst.getDireccion() != null){
-                institucionOut.setDireccion(inst.getDireccion());
+                instOut.setDireccion(inst.getDireccion());
             }
-
             if(inst.getDominio() != null){
-                institucionOut.setDominio(inst.getDominio());
+                instOut.setDominio(inst.getDominio());
             }
             if(inst.getTelefono() != null){
-                institucionOut.setTelefono (inst.getTelefono());
+                instOut.setTelefono(inst.getTelefono());
             }
- 
-            institucionOut = institucionRepository.updateInstitucion(institucionOut, id);
-            return new ResponseEntity<>(gson.toJson(institucionOut),HttpStatus.OK);
+      
+            instOut = institucionRepository.updateInstitucion(instOut, id);
+            return new ResponseEntity<>(gson.toJson(instOut),HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
