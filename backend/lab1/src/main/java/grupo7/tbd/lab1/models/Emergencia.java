@@ -11,6 +11,7 @@ public class Emergencia{
     private String descripcion;
     private Long id_institucion;
     private Boolean activo;
+    private String ubicacion;
     private boolean deleted;
     
 
@@ -32,6 +33,9 @@ public class Emergencia{
     }
     public Boolean getActivo(){
         return activo;
+    }
+    public String getUbicacion(){
+        return ubicacion;
     }
     public boolean getDeleteEstado(){
         return deleted;
@@ -56,6 +60,9 @@ public class Emergencia{
     }
     public void setActivo(boolean activo){
         this.activo=activo;
+    }
+    public void setUbicacion(String ubicacion){
+        this.ubicacion=ubicacion;
     }
     public void setDeleteEstado(boolean deleted){
         this.deleted = deleted;

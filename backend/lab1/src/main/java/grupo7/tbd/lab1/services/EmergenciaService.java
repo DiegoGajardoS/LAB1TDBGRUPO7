@@ -37,8 +37,8 @@ public class EmergenciaService {
 
     @GetMapping("/emergencias/")
     ResponseEntity<String> getEmergencias(){
-        List<Emergencia> emergencias = emergenciaRepository.getEmergencias();
-        return new ResponseEntity<>(gson.toJson(emergencias),HttpStatus.OK);
+        List<Emergencia> emergenciasOut = emergenciaRepository.getEmergencias();
+        return new ResponseEntity<>(gson.toJson(emergenciasOut),HttpStatus.OK);
     }
 
     @GetMapping("/emergencias/{id}")

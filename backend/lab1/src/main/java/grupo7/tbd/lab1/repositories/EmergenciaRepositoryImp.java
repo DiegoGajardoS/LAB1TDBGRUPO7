@@ -58,17 +58,15 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     }
     @Override
     public List<Emergencia> getEmergencias() {
-        System.out.println("holaaa");
-        String query = "select emergencia.id, emergencia.titulo, emergencia.descripcion, emergencia.direccion,emergencia.id_institucion,emergencia.activo, st_x(st_astext(emergencia.ubicacion)) AS longitud, st_y(st_astext(emergencia.ubicacion)) AS latitud from emergencia";
-        
+        String query = "select * from emergencia where deleted = false";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(query).executeAndFetch(Emergencia.class);
          }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
+         catch (Exception e){
+             System.out.println(e.getMessage());
+             return null;
+         }
+     }
 
     @Override
     public boolean deleteEmergencia(Long id){
