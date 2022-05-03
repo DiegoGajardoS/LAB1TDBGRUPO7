@@ -26,6 +26,7 @@ public class TareaService {
         this.tareaRepository = tareaRepository;
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/tareas/")
     ResponseEntity<String> getTareas(){
         List<Tarea> tareas = tareaRepository.getTareas() ;
@@ -58,7 +59,7 @@ public class TareaService {
     ResponseEntity<String> updateTarea(@RequestBody String request, @PathVariable Long id){
         Tarea funciona=gson.fromJson(request,Tarea.class);
         Tarea tarOut = tareaRepository.getTarea(id);
-        
+
         if(tarOut != null){
             if(funciona.getCant_Voluntarios() != null){
                 tarOut.setCant_Voluntarios(funciona.getCant_Voluntarios());
@@ -82,7 +83,7 @@ public class TareaService {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    
+
 
     @DeleteMapping("/tareas/{id}")
     ResponseEntity<String> deleteTarea(@PathVariable Long id){

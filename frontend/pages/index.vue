@@ -1,27 +1,27 @@
 <template>
-  <div id="index">
-    <h1 class="title">
-      Listado de tareas
-    </h1>
-
-    <div v-for = "tarea of tareas" v-bind:key="tareas.id"
-      {{tarea}}
-    </div>
+<div class="container">
+  <h1 class='title'>
+    Listado de tareas
+  </h1>
+  <ul class="item-list">
+    <li v-for="tarea in items" v-bind:key="index">
+      {{tarea.titulo}} - {{tarea.descripcion}} - {{tarea.id_estado}} - {{tarea.id_emergencia}} - {{tarea.cant_voluntarios}}
+    </li>
+  </ul>
+  <div v-if="items.length==0" class="empty-list">
+    <em>No se han cargado los datos</em>
   </div>
-
+</div>
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
-    name: "index",
-
     //Función que contiene los datos del componente
     data: function(){
         return {
             //Lista de ítems a mostrar
-            tareas:[]
+            items:[]
         }
     },
 
@@ -29,8 +29,8 @@ export default {
         //Función asíncrona para consultar los datos
         getData: async function(){
             try {
-                let response = axios.get('/tareas/');
-                this.tareas  = response.data;
+                let response = await this.$axios.get('http://localhost:8080/tareas/');
+                this.items  = response.data;
                 console.log(response)
             } catch (error) {
                 console.log('error', error);
