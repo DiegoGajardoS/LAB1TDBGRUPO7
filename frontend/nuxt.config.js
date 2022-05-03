@@ -52,11 +52,14 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:8080/',
+    //baseURL: 'http://localhost:8080/',
     baseURL: process.env.BACK_URL,
     proxy: true,
   },
 
+  proxy:{
+    TareaService: 'http://localhost:8080/tareas/',
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }
