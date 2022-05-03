@@ -142,7 +142,3 @@ CREATE TABLE Ranking (
     PRIMARY KEY (id)
 
 );
-
-
-
-
