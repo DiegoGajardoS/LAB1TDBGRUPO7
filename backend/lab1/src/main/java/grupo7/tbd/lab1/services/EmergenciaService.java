@@ -106,7 +106,11 @@ public class EmergenciaService {
         List<Habilidad> habilidades = emergenciaRepository.getHabilidadesEmergencia(id_em);
         return new ResponseEntity<>(gson.toJson(habilidades),HttpStatus.OK);
     }
-    
+    @GetMapping("/emergenciasRegionVoluntario/{id_vol}")
+    ResponseEntity<String> getEmergenciasByRegionUsuario(@PathVariable Long id_vol){
+        List<Emergencia> emergenciasOut = emergenciaRepository.getEmergenciasByRegionUsuario(id_vol);
+        return new ResponseEntity<>(gson.toJson(emergenciasOut),HttpStatus.OK);
+    }
     
 
 }
