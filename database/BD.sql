@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS Tarea_habilidad CASCADE;
 DROP TABLE IF EXISTS Estado_tarea CASCADE;
 
 
+CREATE EXTENSION postgis;
+
 
 CREATE TABLE Voluntario(
 
@@ -20,7 +22,7 @@ CREATE TABLE Voluntario(
     direccion text,
     correo_electronico varchar(100),
     rut varchar(12) UNIQUE,
-    ubicacion varchar(100),
+    ubicacion GEOMETRY (point),
     deleted boolean NOT NULL DEFAULT false,
     PRIMARY KEY (id)
 
@@ -68,7 +70,7 @@ CREATE TABLE Emergencia (
     descripcion text,
     id_institucion integer,
     activo boolean,
-    ubicacion varchar(100),
+    ubicacion GEOMETRY (point),
     deleted boolean NOT NULL DEFAULT false,
 
     FOREIGN KEY (id_institucion) REFERENCES Institucion(id),

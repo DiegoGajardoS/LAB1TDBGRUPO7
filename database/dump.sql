@@ -1,24 +1,24 @@
 INSERT INTO Voluntario(id,nombre,disponibilidad,telefono,direccion, correo_electronico, rut, ubicacion)
-VALUES(1,'Juan','TRUE','+1234234','santiago','aa@aa.com', '12345678-0', 'santiago'),
-       (2,'Pedro','TRUE','+1231231','independencia','p@gmail.com', '15463423-0','independencia'  ), 
-       (3,'Diego', 'TRUE', '+5432122', 'melipilla', 'diego@hotmail.com', '11231239-0','melipilla' ),
-       (4,'Carla', 'TRUE', '+1234567', 'puente alto', 'carla@gmail.com', '11235264-0','puente alto'  ),
-       (5,'Camila', 'TRUE', '+1234567', 'La florida', 'camila@gmail.com', '20235564-0','La florida' ),
-       (6,'Carolina', 'TRUE', '+1234567', 'La pintana', 'carolina@gmail.com', '21235567-0','La pintana' ),
-       (7,'Valentina', 'TRUE', '+1234567', 'Lo barnechea', 'valentina@gmail.com', '21338564-0','Lo barnechea' ),
-       (8,'Cristiano', 'TRUE', '+1234567', 'vitacura', 'cristianoGOAT@gmail.com', '11237564-0','vitacura' ),
-       (9,'Ronaldo', 'TRUE', '+1234567', 'la reina', 'ronaldo@gmail.com', '11235864-0','la reina' ),
-       (10,'Shrek', 'TRUE', '+1234567', 'providencia', 'shrek@gmail.com', '11238564-0','providencia' ),
-       (11,'Elsa', 'TRUE', '+1234567', 'puente alto', 'elsa@gmail.com', '11239564-0','puente alto' ),
-       (12,'Pato', 'TRUE', '+1234567', 'Renca', 'pato@gmail.com', '11235964-0','Renca'  ),
-       (13,'Olivia', 'TRUE', '+1234567', 'quilicura', 'olivia@gmail.com', '11231564-0','quilicura' ),
-       (14,'Rodrigo', 'TRUE', '+1234567', 'Talagante', 'rodrigo@gmail.com', '21235564-0','Talagante'  ),
-       (15,'Drake', 'TRUE', '+1234567', 'pudahuel', 'drake@gmail.com', '11235564-0','pudahuel'  ),
-       (16,'Josh', 'TRUE', '+1234567', 'pirque', 'josh@gmail.com', '11295564-0','pirque'  ),
-       (17,'Panda', 'TRUE', '+1234567', 'providencia', 'panda@gmail.com', '12235564-0','providencia'  ),
-       (18,'Pardo', 'TRUE', '+1234567', 'estacion central', 'pardo@gmail.com', '18235464-0','estacion central'  ),
-       (19,'Polar', 'TRUE', '+1234567', 'talagante', 'polarparapresidente@gmail.com', '19225564-0', 'talagante' ),
-       (20,'Elmer', 'TRUE', '+1234567', 'santiago', 'elmer@gmail.com', '11243264-0','santiago'  );
+VALUES(1,'Juan','TRUE','+1234234','santiago','aa@aa.com', '12345678-0', ST_GeomFromText('POINT(-70.665676 -33.444925 )', 4326 )),
+       (2,'Pedro','TRUE','+1231231','arica','p@gmail.com', '15463423-0', ST_GeomFromText('POINT(-70.293039 -18.468494 )', 4326 )), 
+       (3,'Diego', 'TRUE', '+5432122', 'neltume', 'diego@hotmail.com', '11231239-0', ST_GeomFromText('POINT(-71.946096 -39.848355 )', 4326 )),
+       (4,'Carla', 'TRUE', '+1234567', 'concepcion', 'carla@gmail.com', '11235264-0', ST_GeomFromText('POINT(-73.058309 -36.820649 )' , 4326 )),
+       (5,'Camila', 'TRUE', '+1234567', 'chiloe', 'camila@gmail.com', '20235564-0', ST_GeomFromText('POINT(-73.766722 -42.473056 )' , 4326  )),
+       (6,'Carolina', 'TRUE', '+1234567', 'puerto natales', 'carolina@gmail.com', '21235567-0',ST_GeomFromText('POINT(-72.499265 -51.735308 )', 4326  )),
+       (7,'Valentina', 'TRUE', '+1234567', 'talca', 'valentina@gmail.com', '21338564-0',ST_GeomFromText('POINT(-71.659534 -35.434628 )', 4326   )),
+       (8,'Cristiano', 'TRUE', '+1234567', 'valdivia', 'cristianoGOAT@gmail.com', '11237564-0',ST_GeomFromText('POINT(-73.245709 -39.824919 )', 4326   )),
+       (9,'Ronaldo', 'TRUE', '+1234567', 'canete', 'ronaldo@gmail.com', '11235864-0',ST_GeomFromText('POINT(-73.390526 -37.791163 )', 4326   ) ),
+       (10,'Shrek', 'TRUE', '+1234567', 'farellones', 'shrek@gmail.com', '11238564-0',ST_GeomFromText('POINT(-70.301374 -33.359879)' , 4326  ) ),
+       (11,'Elsa', 'TRUE', '+1234567', 'villarrica', 'elsa@gmail.com', '11239564-0',ST_GeomFromText('POINT(-72.229159 -39.284744)' , 4326 ) ),
+       (12,'Pato', 'TRUE', '+1234567', 'constitucion', 'pato@gmail.com', '11235964-0',ST_GeomFromText('POINT(-72.429450 -35.331009)', 4326   ) ),
+       (13,'Olivia', 'TRUE', '+1234567', 'atacama', 'olivia@gmail.com', '11231564-0',ST_GeomFromText('POINT(-69.623951 -26.252269)', 4326   ) ),
+       (14,'Rodrigo', 'TRUE', '+1234567', 'Talagante', 'rodrigo@gmail.com', '21235564-0',ST_GeomFromText('POINT(-70.920522 -33.665714)' , 4326  ) ),
+       (15,'Drake', 'TRUE', '+1234567', 'puerto montt', 'drake@gmail.com', '11235564-0',ST_GeomFromText('POINT(-72.966927 -41.468711)' , 4326  )),
+       (16,'Josh', 'TRUE', '+1234567', 'coquimbo', 'josh@gmail.com', '11295564-0',ST_GeomFromText('POINT(-71.322881 -29.971611)', 4326   )),
+       (17,'Panda', 'TRUE', '+1234567', 'valparaiso', 'panda@gmail.com', '12235564-0',ST_GeomFromText('POINT(-71.650387 -33.048961)', 4326  )),
+       (18,'Pardo', 'TRUE', '+1234567', 'temuco', 'pardo@gmail.com', '18235464-0',ST_GeomFromText('POINT(-72.630037 -38.732503)', 4326   )),
+       (19,'Polar', 'TRUE', '+1234567', 'frutillar', 'polarparapresidente@gmail.com', '19225564-0', ST_GeomFromText('POINT(-73.052353 -41.121209)', 4326  )),
+       (20,'Elmer', 'TRUE', '+1234567', 'antofagasta', 'elmer@gmail.com', '11243264-0',ST_GeomFromText('POINT(-70.390717 -23.606989)' , 4326  ));
        
 
 INSERT INTO Institucion(id,nombre,direccion,telefono,dominio)
@@ -29,16 +29,16 @@ VALUES(1,'todosxchile','calle real 1234','223434','@todosxchile.cl'),
       (5,'tetcho','calle los santos 0201','223434','@tetcho.cl');
              
 INSERT INTO Emergencia(id,titulo,direccion,descripcion,id_institucion,activo, ubicacion)
-VALUES(1,'Terremoto 9.5','Region Metropolitana','Cientos de hogares afectados','5', TRUE, 'Region Metropolitana'),
-      (2,'Incendio forestal','Cerro San Cristobal','Incendio a un lado del zoologico','2', FALSE,'Cerro San Cristobal'),
-      (3,'Aluvion','Cajon del Maipo','muchos escombros y barro','3', TRUE,'Cajon del Maipo'),
-      (4,'Tsunami','Constitucion','destruccion total','4', TRUE, 'Constitucion'),
-      (5,'Incendio forestal','La Araucania','miles de hectareas afectadas','1', TRUE, 'La Araucania'),
-      (6,'Inundacion','Recoleta','perdida total','1', TRUE,'Recoleta'),
-      (7,'Erupcion volcanica','Villa Rica','lava volcanica por todas partes','2', TRUE, 'Villa Rica'),
-      (8,'Avalancha','Farellones','personas desaparecisas ','3', TRUE, 'Farellones'),
-      (9,'Tormenta','Region Metropolitana','levantamiento de techumbre','4', TRUE, 'Region Metropolitana'),
-      (10,'Tornado','Puerto Montt','destruccion muelle y botes','5', TRUE, 'Puerto Montt');
+VALUES(1,'Terremoto 9.5','Antofagasta','Cientos de hogares afectados','5', TRUE, ST_GeomFromText('POINT(-70.387154 -23.633290)' , 4326 )),
+      (2,'Incendio forestal','Cerro San Cristobal','Incendio a un lado del zoologico','2', FALSE,ST_GeomFromText('POINT(-70.630222 -33.420470)', 4326  )),
+      (3,'Aluvion','Atacama','muchos escombros y barro','3', TRUE,ST_GeomFromText('POINT(-69.099664 -26.081048)' , 4326  )),
+      (4,'Tsunami','Constitucion','destruccion total','4', TRUE, ST_GeomFromText('POINT(-72.416268 -35.318228)' , 4326  )),
+      (5,'Incendio forestal','La Araucania','miles de hectareas afectadas','1', TRUE,ST_GeomFromText('POINT(-71.921069 -38.675047)', 4326  )),
+      (6,'Inundacion','Valdivia','perdida total','1', TRUE,ST_GeomFromText('POINT(-73.208392 -39.819949)' , 4326  )),
+      (7,'Erupcion volcanica','Villa Rica','lava volcanica por todas partes','2', TRUE,ST_GeomFromText('POINT(-72.226159 -39.276256)' , 4326 )),
+      (8,'Avalancha','Farellones','personas desaparecisas ','3', TRUE,ST_GeomFromText('POINT(-70.245745 -33.332637)', 4326  )),
+      (9,'Tormenta','Region Metropolitana','levantamiento de techumbre','4', TRUE, ST_GeomFromText('POINT(-70.882984 -33.295563)', 4326 ) ),
+      (10,'Tornado','Puerto Montt','destruccion muelle y botes','5', TRUE, ST_GeomFromText('POINT(-72.939739 -41.472780)', 4326   )  );
 
 INSERT INTO Habilidad(id,nombreH,descripcion)
 VALUES(1,'Habilidad 1','Todo lo relacionado con construccion'),
@@ -149,6 +149,5 @@ VALUES (1,100,1,1),
        (2,100,2,2),
        (3,100,10,3),
        (4,100,5,4);
-
 
 
