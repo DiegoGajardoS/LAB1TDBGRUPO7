@@ -24,17 +24,20 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
     @Override
     public Voluntario createVoluntario(Voluntario voluntario){
         Long id_vol = countVoluntarios();
-        String query = "INSERT INTO voluntario (id,nombre,disponibilidad,telefono,direccion,correo_electronico,rut,ubicacion) values (:id,:nombre,:disponibilidad,:telefono,:direccion,:correo_electronico,:rut,:ubicacion)";
+        String coordenada = voluntario.getLongitud().toString() + " " + voluntario.getLatitud().toString();
+        String query = "INSERT INTO voluntario (id,nombre,disponibilidad,telefono,direccion,correo_electronico,rut,ubicacion) values (:id,:nombre,:disponibilidad,:telefono," + 
+        ":direccion,:correo_electronico,:rut,ST_GeomFromText('POINT(" + coordenada + ")', 4326))";
         try(Connection conn = sql2o.open()){
-            conn.createQuery(query,true).addParameter("id",id_vol)
+            conn.createQuery(query,true)
+                            .addParameter("id",id_vol)
                             .addParameter("disponibilidad", voluntario.getDisponibilidad())
                             .addParameter("nombre", voluntario.getNombre())
                             .addParameter("telefono", voluntario.getTelefono())
                             .addParameter("direccion", voluntario.getDireccion())
                             .addParameter("correo_electronico", voluntario.getCorreo_electronico())
                             .addParameter("rut", voluntario.getRut())
-                            .addParameter("ubicacion", voluntario.getUbicacion())
-                            .executeUpdate().getKey(Long.class);
+                            .executeUpdate().getKey();
+        
             voluntario.setId(id_vol);
             return voluntario;
         }
@@ -46,7 +49,7 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
 
     @Override
     public Voluntario getVoluntario(Long id){
-        String query = "select * from voluntario where id = :id and deleted = false";
+        String query = "select nombre, disponibilidad, telefono, direccion, correo_electronico, st_x(st_astext(ubicacion)) AS longitud, st_y(st_astext(ubicacion)) AS latitud from voluntario where id = :id and deleted = false";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(query).addParameter("id",id).executeAndFetchFirst(Voluntario.class);
         }
@@ -58,7 +61,7 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
 
     @Override
     public List<Voluntario> getAllVoluntarios() {
-        String query = "select * from voluntario where deleted = false";
+        String query = "select nombre, disponibilidad, telefono, direccion, correo_electronico, st_x(st_astext(ubicacion)) AS longitud, st_y(st_astext(ubicacion)) AS latitud from voluntario where deleted = false";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(query).executeAndFetch(Voluntario.class);
          }
@@ -83,7 +86,8 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
 
     @Override
     public Voluntario updateVoluntario( Voluntario voluntario,Long id){
-        String query = "update voluntario set nombre = :nombre , disponibilidad = :disponibilidad , telefono = :telefono, direccion = :direccion, correo_electronico = :correo_electronico, rut = :rut, ubicacion = :ubicacion where id = :id and deleted = false";
+        String coordenada = voluntario.getLongitud().toString() + " " + voluntario.getLatitud().toString();
+        String query = "update voluntario set nombre = :nombre , disponibilidad = :disponibilidad , telefono = :telefono, direccion = :direccion, correo_electronico = :correo_electronico, rut = :rut, ubicacion = ST_GeomFromText('POINT(" + coordenada + ")' , 4326 ) where id = :id and deleted = false";
         try(Connection conn = sql2o.open()){
             Long insertedid = (Long) conn.createQuery(query).addParameter("id", id)
             .addParameter("id",voluntario.getId())
@@ -93,7 +97,6 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
             .addParameter("direccion", voluntario.getDireccion())
             .addParameter("correo_electronico", voluntario.getCorreo_electronico())
             .addParameter("rut", voluntario.getRut())
-            .addParameter("ubicacion", voluntario.getUbicacion())
             .executeUpdate().getKey(Long.class);
             voluntario.setId(insertedid);
         

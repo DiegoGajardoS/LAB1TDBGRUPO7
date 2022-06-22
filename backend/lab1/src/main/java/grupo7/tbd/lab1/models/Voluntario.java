@@ -13,8 +13,9 @@ public class Voluntario {
     private String direccion;
     private String correo_electronico;
     private String rut;
-    private String ubicacion;
-    private Boolean deleted;   
+    private Double latitud;
+    private Double longitud;   
+    private Boolean deleted;
     //***** GETTERS *****//
     public Long getId() {
         return id;
@@ -41,9 +42,13 @@ public class Voluntario {
     public String getRut(){
         return rut;
     }
-    public String getUbicacion(){
-        return ubicacion;
+    public Double getLatitud(){
+        return latitud;
     }
+    
+   public Double getLongitud(){
+       return longitud;
+   }
 
     public Boolean getDeleted(){
         return deleted;
@@ -79,8 +84,12 @@ public class Voluntario {
     public void setRut(String rut){
         this.rut = rut;
     }
-    public void setUbicacion(String ubicacion){
-        this.ubicacion = ubicacion;
+    public void setLatitud(Double latitud){
+        this.latitud = latitud;
+    }
+    
+    public void setLongitud(Double longitud){
+        this.longitud = longitud;
     }
 
     public void setDeleted(Boolean deleted){
