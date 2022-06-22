@@ -15,5 +15,6 @@ public interface EmergenciaRepository{
     public Emergencia updateEmergencia(Emergencia emergencia, Long id);
     public boolean deleteEmergencia(Long id);
     public Long countEmergencia();
+    public List<Emergencia> getEmergenciasByRegionUsuario(Long id_user);
     public List <Habilidad> getHabilidadesEmergencia(Long id_em);
 }

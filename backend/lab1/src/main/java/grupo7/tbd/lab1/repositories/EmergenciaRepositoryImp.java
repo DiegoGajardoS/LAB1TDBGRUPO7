@@ -105,7 +105,22 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
 
     }
     
-    
+    @Override
+    public List<Emergencia> getEmergenciasByRegionUsuario(Long id_vol){
+        String query = "Select t2.titulo,t2.descripcion,latitud,longitud from(SELECT distinct emergencia.titulo, emergencia.descripcion, st_x(st_astext(emergencia.ubicacion)) AS longitud, st_y(st_astext(emergencia.ubicacion)) AS latitud from division_regional,emergencia" +
+"	WHERE ST_Contains((Select geom from division_regional where nom_reg = (SELECT t1.nom_reg from (SELECT distinct division_regional.nom_reg from division_regional,voluntario,emergencia where ST_CONTAINS(division_regional.geom,(select ubicacion from voluntario where id = :id_vol)) = true )" +
+"	as t1)),emergencia.ubicacion) = true) as t2;";
+        try(Connection conn = sql2o.open()){
+            System.out.println(conn.createQuery(query,true).addParameter("id_vol", id_vol).executeAndFetch(Emergencia.class));
+            List<Emergencia> emergencias=conn.createQuery(query).addParameter("id_vol", id_vol).executeAndFetch(Emergencia.class);
+            return (emergencias);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            
+            return null;
+        }
+    }
     
     @Override
     public List<Habilidad> getHabilidadesEmergencia(Long id_em){
