@@ -28,14 +28,15 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     @Override
     public Emergencia createEmergencia(Emergencia emergencia){
         Long id_prueba =countEmergencia();
-        String query = "INSERT INTO emergencia (id,titulo,descripcion,direccion,id_institucion,activo,ubicacion) values (:id,:titulo,:direccion,:descripcion,:id_institucion,:activo,:ubicacion)";
+        String coordenada = emergencia.getLongitud().toString() + " " + emergencia.getLatitud().toString();
+        String query = "INSERT INTO emergencia(id,titulo,direccion,descripcion,id_institucion,activo,ubicacion) values (:id,:titulo,:direccion,:descripcion,:id_institucion,:activo" + 
+        ", ST_GeomFromText('POINT(" + coordenada + ")' , 4326 ))";
         try(Connection conn = sql2o.open()){
             conn.createQuery(query,true).addParameter("id",id_prueba).addParameter("titulo", emergencia.getTitulo())
                             .addParameter("descripcion", emergencia.getDescripcion())
                             .addParameter("id_institucion", emergencia.getInstitucionId())
                             .addParameter("direccion", emergencia.getDireccion())
                             .addParameter("activo", emergencia.getActivo())
-                            .addParameter("ubicacion", emergencia.getUbicacion())
                             .executeUpdate().getKey(Long.class);
             emergencia.setId(id_prueba);
             return emergencia;
@@ -48,7 +49,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
 
     @Override
     public Emergencia getEmergencia(Long id){
-        String query = "select * from emergencia where id = :id and deleted = false";
+        String query = "select titulo,direccion,descripcion,st_x(st_astext(ubicacion)) AS longitud, st_y(st_astext(ubicacion)) AS latitud from emergencia where id = :id and deleted = false";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(query).addParameter("id",id).executeAndFetchFirst(Emergencia.class);
         }
@@ -59,7 +60,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     }
     @Override
     public List<Emergencia> getEmergencias() {
-        String query = "select * from emergencia where deleted = false";
+        String query = "select titulo,direccion,descripcion,st_x(st_astext(ubicacion)) AS longitud, st_y(st_astext(ubicacion)) AS latitud from emergencia where deleted = false";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(query).executeAndFetch(Emergencia.class);
          }
@@ -84,7 +85,8 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
 
     @Override
     public Emergencia updateEmergencia( Emergencia emergencia,Long id){
-        String query = "update emergencia set titulo = :titulo,descripcion = :descripcion, direccion = :direccion,id_institucion = :id_institucion,activo = :activo where id = :id and deleted = false";
+        String coordenada = emergencia.getLongitud().toString() + " " + emergencia.getLatitud().toString();
+        String query = "update emergencia set titulo = :titulo,descripcion = :descripcion, direccion = :direccion,id_institucion = :id_institucion,activo = :activo,ubicacion = ST_GeomFromText('POINT(" + coordenada + ")' , 4326 ) where id = :id and deleted = false";
         try(Connection conn = sql2o.open()){
           Long insertedid = (Long) conn.createQuery(query).addParameter("id", id)
             .addParameter("titulo", emergencia.getTitulo())
@@ -102,7 +104,9 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
         }
 
     }
-
+    
+    
+    
     @Override
     public List<Habilidad> getHabilidadesEmergencia(Long id_em){
         String query = "SELECT eme_habilidad.id , habilidad.nombreH FROM eme_habilidad,habilidad WHERE habilidad.id=eme_habilidad.id_habilidad and eme_habilidad.id_emergencia=:id_em ";

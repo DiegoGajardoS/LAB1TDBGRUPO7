@@ -11,8 +11,9 @@ public class Emergencia{
     private String descripcion;
     private Long id_institucion;
     private Boolean activo;
-    private String ubicacion;
-    private boolean deleted;
+    private Double latitud;
+    private Double longitud;
+    private Boolean deleted;
     
 
     //***** GETTERS *****//
@@ -34,10 +35,13 @@ public class Emergencia{
     public Boolean getActivo(){
         return activo;
     }
-    public String getUbicacion(){
-        return ubicacion;
+    public Double getLatitud(){
+        return latitud;
     }
-    public boolean getDeleteEstado(){
+    public Double getLongitud(){
+        return longitud;
+    }
+    public Boolean getDeleteEstado(){
         return deleted;
     }
    
@@ -61,10 +65,13 @@ public class Emergencia{
     public void setActivo(boolean activo){
         this.activo=activo;
     }
-    public void setUbicacion(String ubicacion){
-        this.ubicacion=ubicacion;
-    }
-    public void setDeleteEstado(boolean deleted){
+    public void setDeleteEstado(Boolean deleted){
         this.deleted = deleted;
+    }
+    public void setLatitud(Double latitud){
+        this.latitud = latitud;
+    }
+    public void setLongitud(Double longitud){
+        this.longitud = longitud;
     }
 }  

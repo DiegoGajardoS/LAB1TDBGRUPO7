@@ -75,8 +75,11 @@ public class VoluntarioService {
             if(vol.getTelefono() != null){
                 VoluntariosOut.setTelefono(vol.getTelefono());
             }
-            if(vol.getUbicacion()!= null){
-                VoluntariosOut.setUbicacion(vol.getUbicacion());
+            if(vol.getLongitud()!= null){
+                VoluntariosOut.setLongitud(vol.getLongitud());
+            }
+            if(vol.getLatitud()!= null){
+                VoluntariosOut.setLatitud(vol.getLatitud());
             }
             VoluntariosOut = voluntarioRepository.updateVoluntario(VoluntariosOut, id);
             return new ResponseEntity<>(gson.toJson(VoluntariosOut),HttpStatus.OK);
