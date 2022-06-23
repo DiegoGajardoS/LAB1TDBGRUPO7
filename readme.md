@@ -17,14 +17,21 @@ Estos datos se deben copiar en el espacio que se genere al seleccionar Query Too
 
 Luego se debe poblar la base de datos, para ello se debe realizar el mismo paso anterior pero con el archivo dump.sql, tambien presente en la ruta '\lab1 grupo 7\database'
 
-Luego para la creaccion de la funcion trigger, se debe realizar el mismo paso con el archivo triggerFunction.sql tambien presente en la ruta '\lab1 grupo 7\database'
+Luego se deben cargar las regiones, para ello se realiza el mismo paso anterior pero con los datos en el archivo llamado division_regional.sql tambien presente en la ruta '\lab1 grupo 7\database'
 
-Finalmente para la creacion del trigger, se debe realizar el mismo procedimiento con el archivo trigger.sql tambien presente en la ruta '\lab1 grupo 7\database'
+## OPCIONAL: Luego para la creaccion de la funcion trigger, se debe realizar el mismo paso con el archivo triggerFunction.sql tambien presente en la ruta '\lab1 grupo 7\database'
+
+	  Finalmente para la creacion del trigger, se debe realizar el mismo procedimiento con el archivo trigger.sql tambien presente en la ruta '\lab1 grupo 7\database'
 
 ## Frontend
 
 Para poder desplegar la vista de la funcionalidad, primero se tiene que inicializar la base de datos, para esto se abre una terminal en la carpeta '\lab1 grupo 7\backend\lab1' y se ejecuta el comando 'gradle bootRun' (sin las comillas).
 
-Una vez inicializado, se abre otra terminal (distinta a donde se inicializo la base de datos) pero esta vez en la carpeta '\lab1 grupo 7\frontend' y se ejecuta el comando 'npm run dev' (sin comillas).
+Una vez inicializado, se abre otra terminal (distinta a donde se inicializo la base de datos) pero esta vez en la carpeta '\lab1 grupo 7\frontend' y se ejecuta el comando 'npm run dev' (sin comillas). En caso de que esta funcionalidad no sea reconocida
+se debe ejecutar el comando npm install y luego npm run dev
 
-Ya inicializado el frontend, se copia (desde la terminal), la dirección 'http://localhost:8081' (sin comillas) y se pega en el navegador, desplegandose la vista de listado de tareas.
+Ya inicializado el frontend, se copia (desde la terminal), la dirección 'http://localhost:8081' (sin comillas) y se pega en el navegador, desplegandose la vista de inicio, en ella se puede seleccionar la opcion de mapa
+vista que mostrara un mapa inicialmente sin ningun marcador, en la seccion inferior se puede ver un formulario donde se pide un id, este id corresponde al id de un voluntario, y dependiendo de si hay emergencias presentes en la
+misma region del voluntario, estas se mostraran en el mapa.
+
+En caso de no tener no se mostrara ningun marcador.
