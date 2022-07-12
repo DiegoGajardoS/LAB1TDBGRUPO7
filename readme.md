@@ -1,4 +1,4 @@
-# TBD Laboratorio 1 GRUPO 7
+# TBD Laboratorio 3 GRUPO 7
 
 ## Base de datos
 
@@ -18,6 +18,34 @@ Estos datos se deben copiar en el espacio que se genere al seleccionar Query Too
 Luego se debe poblar la base de datos, para ello se debe realizar el mismo paso anterior pero con el archivo dump.sql, tambien presente en la ruta '\lab1 grupo 7\database'
 
 Luego se deben cargar las regiones, para ello se realiza el mismo paso anterior pero con los datos en el archivo llamado division_regional.sql tambien presente en la ruta '\lab1 grupo 7\database'
+
+## MongoDB
+
+
+1)	Descargar MongoDBCompass desde la página: 
+https://www.mongodb.com/try/download/community 
+Seleccionar opción “On-premises MongoDB locally” y luego download.
+2)	Instalar MongoDBCompass
+3)	Abrir MongoDBCompass
+4)	Conectar a un despliegue de MongoDB
+5)	Presionar en la parte superior “Databases”
+6)	Crear una base de datos con el botón verde “Create database”.
+7)	Ingresar “TBD-LAB3” (Omitiendo doble comilla al escribirlo en la aplicación) En “Database Name” y en “Collection Name” ingresar “Emergencias” o “Tarea” (Nuevamente omitiendo comillas)
+8)	Presionar “Create Database”
+9)	Presionar click izquierdo en la base de datos “TBD-LAB3”, que ahora se muestra en la barra de la izquierda.
+10)	Presionar click izquierdo en la colección de “Emergencias” o “Tareas”, según la que haya creado.
+11)	Seleccionar la sección “Documents” de la parte superior
+12)	Presionar click izquierdo donde dice “ADD DATA”
+13)	Presionar la opción “Insert Document” que se muestra
+14)	Borrar todo lo que se muestra en la ventana que aparece
+15)	Copiar el contenido del script que corresponde a la colección (“Tarea” o “Emergenica”)
+16)	Pegar el script en la ventana que se muestra en el paso 14
+17)	Presionar “Insert”
+18)	Crear la colección que falte entre “Tarea” o “Emergencia”, para ello, presionar en la base de datos “TBD-LAB3” que se muestra en la barra de la izquierda
+19)	Presionar el botón verde “Create collection” que se muestra en la parte superior
+20)	Ingresar el nombre de la colección restante
+21)	Presionar “Create Collection”
+22)	Seguir los pasos desde el 10 al 17 con la colección restante.
 
 ## OPCIONAL: Luego para la creaccion de la funcion trigger, se debe realizar el mismo paso con el archivo triggerFunction.sql tambien presente en la ruta '\lab1 grupo 7\database'
 
